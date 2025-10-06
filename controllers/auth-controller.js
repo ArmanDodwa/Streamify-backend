@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 const { upsertStreamUser } = require("../lib/stream");
 
 const signupUser = async (req, res) => {
-  console.log(req.body)
+  console.log("this send data",req.body)
   const { name, email, password } = req.body;
 
   try {
