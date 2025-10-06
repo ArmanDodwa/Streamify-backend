@@ -17,11 +17,15 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use(cors({
-  origin: "http://localhost:5173", 
-  credentials: true,               
+  origin: "http://localhost:5173", // frontend URL without trailing slash
+  credentials: true,               // allow cookies
 }));
 
 
+
+
+
+// app.listen(PORT, () => {
 //       console.log(`🚀 Server is running on http://localhost:${PORT}`);
 //        conntectDb()
 //     });
@@ -42,8 +46,6 @@ async function connectDb() {
     });
 
     
-
-    isConnected = true;
     console.log("✅ MongoDB Connected Successfully");
   } catch (err) {
     console.error("❌ MongoDB Connection Failed:", err.message);
@@ -56,6 +58,9 @@ app.use(async (req, res, next) => {
   next();
 });
 
+app.get("/", (req, res) => {
+  res.send("Server running!");
+});
 
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
