@@ -70,12 +70,13 @@ const signupUser = async (req, res) => {
     );
 
     // Set cookie
-    res.cookie("jwt", token, {
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-      httpOnly: true, // prevent XSS attacks
-      sameSite: "strict", // prevent CSRF attacks
-      secure: process.env.NODE_ENV === "production",
-    });
+   res.cookie("jwt", token, {
+  maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+  httpOnly: true, // protect from XSS
+  secure: process.env.NODE_ENV === "production", // true only in HTTPS
+  sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax", // important for cross-origin
+  path: "/", // optional but good practice
+});
 
     // Send response
     res.status(200).json({
