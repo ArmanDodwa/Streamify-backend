@@ -123,11 +123,12 @@ const loginUser = async (req, res) => {
     });
 
     // ✅ 5. Set cookie
-    res.cookie("jwt", token, {
+   res.cookie("jwt", token, {
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-      httpOnly: true,
-      sameSite: "strict",
-      secure: process.env.NODE_ENV === "production",
+      httpOnly: true, // secure from JS access
+      secure: process.env.NODE_ENV === "production", // true on vercel
+      sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax", // allows cross-origin
+      path: "/",
     });
 
     // ✅ 6. Send success response
@@ -151,8 +152,9 @@ const logOutUser = (req, res) => {
     // ✅ Clear the cookie by name
     res.clearCookie("jwt", {
       httpOnly: true,
-      sameSite: "strict",
       secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
+      path: "/", // important to match cookie path
     });
 
     return res.status(200).json({
