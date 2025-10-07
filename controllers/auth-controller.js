@@ -32,6 +32,8 @@ const signupUser = async (req, res) => {
       return res.status(400).json({ message: "User already exists" });
     }
 
+    console.log("existingUser run")
+
     // Random avatar
     const idx = Math.floor(Math.random() * 100) + 1;
     const randomAvatar = `https://avatar.iran.liara.run/public/${idx}.png`;
@@ -43,6 +45,8 @@ const signupUser = async (req, res) => {
       password,
       profilePic: randomAvatar,
     });
+
+    console.log("newUser run")
 
     try {
       await upsertStreamUser({
