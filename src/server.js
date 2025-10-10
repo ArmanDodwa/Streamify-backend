@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use(cors({
-  origin: "http://localhost:5173", // frontend URL without trailing slash
+  origin: process.env.FRONTEND_URL, // frontend URL without trailing slash
   credentials: true,               // allow cookies
 }));
 
