@@ -11,14 +11,14 @@ const cors = require("cors")
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT ;
+// const PORT = process.env.PORT ;
 
 app.use(express.json());
 app.use(cookieParser());
 
 app.use(cors({
-  origin: process.env.FRONTEND_URL, // frontend URL without trailing slash
-  credentials: true,               // allow cookies
+  origin: process.env.FRONTEND_URL, 
+  credentials: true,            
 }));
 
 
